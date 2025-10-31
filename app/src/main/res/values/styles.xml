@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    
+    <!-- Base application theme -->
+    <style name="Theme.RegionSwitcher" parent="Theme.Material3.DayNight">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/matrix_green</item>
+        <item name="colorPrimaryVariant">@color/matrix_green_dark</item>
+        <item name="colorOnPrimary">@color/black</item>
+        
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/matrix_green_light</item>
+        <item name="colorSecondaryVariant">@color/matrix_green_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        
+        <!-- Status bar color -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        
+        <!-- Background colors -->
+        <item name="android:windowBackground">@color/matrix_black</item>
+        <item name="colorSurface">@color/matrix_black_light</item>
+        <item name="colorOnSurface">@color/matrix_green</item>
+        
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/matrix_green</item>
+        <item name="android:textColorSecondary">@color/matrix_green_light</item>
+    </style>
+    
+    <!-- Matrix themed card style -->
+    <style name="MatrixCard">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:background">@drawable/matrix_card_background</item>
+        <item name="android:elevation">8dp</item>
+    </style>
+    
+    <!-- Matrix button style -->
+    <style name="MatrixButton" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/matrix_green</item>
+        <item name="backgroundTint">@color/matrix_green_transparent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="strokeColor">@color/matrix_green</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+    
+    <!-- Matrix text style -->
+    <style name="MatrixText">
+        <item name="android:textColor">@color/matrix_green</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">@color/matrix_green</item>
+        <item name="android:shadowRadius">3</item>
+    </style>
+    
+    <!-- Matrix title style -->
+    <style name="MatrixTitle" parent="MatrixText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    
+    <!-- Matrix subtitle style -->
+    <style name="MatrixSubtitle" parent="MatrixText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/matrix_green_light</item>
+    </style>
+    
+    <!-- Matrix input field style -->
+    <style name="MatrixEditText" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="android:textColor">@color/matrix_green</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="boxStrokeColor">@color/matrix_green</item>
+        <item name="hintTextColor">@color/matrix_green_light</item>
+    </style>
+    
+    <!-- Matrix TextInputLayout style -->
+    <style name="MatrixTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+    <item name="boxStrokeColor">@color/matrix_green</item>
+        <item name="hintTextColor">@color/matrix_green_dim</item>
+        <item name="android:textColorHint">@color/matrix_green_dim</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
+    
+    <!-- Region selection button style -->
+    <style name="RegionButton" parent="MatrixButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    
+    <!-- Status indicator style -->
+    <style name="StatusIndicator">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:background">@drawable/status_indicator</item>
+    </style>
+    
+</resources>

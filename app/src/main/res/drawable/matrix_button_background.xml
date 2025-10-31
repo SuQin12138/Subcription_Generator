@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/matrix_green_transparent">
+    
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/matrix_green_transparent_light" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/matrix_green" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    
+</ripple>

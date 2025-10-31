@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">地区切换器</string>
+    
+    <!-- Main Activity -->
+    <string name="main_title">代理地区切换中心</string>
+    <string name="current_region">当前地区</string>
+    <string name="region_detection">地区检测</string>
+    <string name="auto_detection">自动检测</string>
+    <string name="manual_selection">手动选择</string>
+    <string name="custom_proxy_ip">自定义ProxyIP模式</string>
+    
+    <!-- Region Names -->
+    <string name="region_us">🇺🇸 美国</string>
+    <string name="region_sg">🇸🇬 新加坡</string>
+    <string name="region_jp">🇯🇵 日本</string>
+    <string name="region_hk">🇭🇰 香港</string>
+    <string name="region_kr">🇰🇷 韩国</string>
+    <string name="region_de">🇩🇪 德国</string>
+    <string name="region_se">🇸🇪 瑞典</string>
+    <string name="region_nl">🇳🇱 荷兰</string>
+    <string name="region_fi">🇫🇮 芬兰</string>
+    <string name="region_gb">🇬🇧 英国</string>
+    <string name="region_custom">自定义</string>
+    
+    <!-- Configuration -->
+    <string name="config_title">配置管理</string>
+    <string name="worker_region">Worker地区设置</string>
+    <string name="proxy_ip_config">ProxyIP配置</string>
+    <string name="protocol_settings">协议设置</string>
+    <string name="advanced_settings">高级设置</string>
+    <string name="save_config">保存配置</string>
+    <string name="reset_config">重置配置</string>
+    <string name="config_saved">配置已保存</string>
+    <string name="config_reset">配置已重置</string>
+    <string name="worker_domain">Worker域名</string>
+    <string name="worker_domain_hint">例如: example.workers.dev</string>
+    <string name="auth_token">认证令牌 (u)</string>
+    <string name="auth_token_hint">用于订阅和API访问的UUID</string>
+    <string name="custom_path_hint">可选，留空则使用认证令牌</string>
+    <string name="preferred_ips_hint">格式: ip:port#备注，多个以逗号分隔</string>
+    <string name="preferred_ips_url">优选IP来源URL</string>
+    <string name="sub_converter_url">订阅转换地址</string>
+    <string name="enable_preferred_domains">启用优选域名</string>
+    <string name="enable_preferred_ips_toggle">启用优选IP</string>
+    <string name="enable_github_ips">启用 GitHub 默认优选</string>
+    <string name="api_management_enabled">允许API管理</string>
+    <string name="downgrade_mode">启用降级模式</string>
+    <string name="error_missing_worker_domain">请先配置Worker域名</string>
+    <string name="error_missing_auth_or_path">请至少填写自定义路径或认证令牌</string>
+    <string name="error_invalid_uuid">认证令牌格式不正确，请输入有效的UUID</string>
+    <string name="config_save_remote_success">配置已保存并同步到Worker</string>
+    <string name="config_save_remote_failed">远程保存失败: %1$s</string>
+    <string name="config_fetch_remote_failed">远程加载失败: %1$s</string>
+    
+    <!-- Protocol Types -->
+    <string name="enable_vless">启用 VLESS</string>
+    <string name="enable_trojan">启用 Trojan</string>
+    <string name="enable_xhttp">启用 xhttp</string>
+    <string name="trojan_password">Trojan 密码</string>
+    <string name="trojan_password_hint">留空则使用UUID</string>
+    
+    <!-- Subscription -->
+    <string name="subscription_title">订阅管理</string>
+    <string name="subscription_url">订阅链接</string>
+    <string name="generate_subscription">生成订阅</string>
+    <string name="copy_subscription">复制订阅链接</string>
+    <string name="subscription_copied">订阅链接已复制</string>
+    <string name="client_support">客户端支持</string>
+    
+    <!-- Client Types -->
+    <string name="client_clash">Clash</string>
+    <string name="client_surge">Surge</string>
+    <string name="client_singbox">Sing-Box</string>
+    <string name="client_loon">Loon</string>
+    <string name="client_quantumult">Quantumult X</string>
+    <string name="client_v2ray">V2Ray</string>
+    
+    <!-- Status -->
+    <string name="system_status">系统状态</string>
+    <string name="connection_status">连接状态</string>
+    <string name="proxy_status">代理状态</string>
+    <string name="region_matching">地区匹配</string>
+    <string name="status_online">在线</string>
+    <string name="status_offline">离线</string>
+    <string name="status_connecting">连接中</string>
+    <string name="status_error">错误</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">设置</string>
+    <string name="custom_path">自定义路径</string>
+    <string name="custom_ip">自定义IP</string>
+    <string name="preferred_ips">优选IP列表</string>
+    <string name="socks5_config">SOCKS5配置</string>
+    <string name="region_matching_enabled">启用地区匹配</string>
+    <string name="tls_only">仅TLS节点</string>
+    <string name="disable_preferred">禁用优选IP</string>
+    
+    <!-- Common -->
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="edit">编辑</string>
+    <string name="add">添加</string>
+    <string name="refresh">刷新</string>
+    <string name="loading">加载中...</string>
+    <string name="error">错误</string>
+    <string name="success">成功</string>
+    <string name="warning">警告</string>
+    <string name="info">信息</string>
+    
+    <!-- Errors -->
+    <string name="error_network">网络连接错误</string>
+    <string name="error_invalid_config">配置无效</string>
+    <string name="error_save_failed">保存失败</string>
+    <string name="error_load_failed">加载失败</string>
+</resources>

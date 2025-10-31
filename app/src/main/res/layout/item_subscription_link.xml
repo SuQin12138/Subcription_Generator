@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/matrix_black_light"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:strokeColor="@color/matrix_green"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Header Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvProtocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VLESS"
+                android:textColor="@color/matrix_green"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:background="@drawable/matrix_button_background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tvSecurity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TLS"
+                android:textColor="@color/matrix_green"
+                android:textSize="10sp"
+                android:background="@drawable/matrix_button_background"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:layout_marginEnd="8dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击复制"
+                android:textColor="@color/matrix_green_dim"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+        <!-- Node Name -->
+        <TextView
+            android:id="@+id/tvNodeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="原生地址-443-WS-TLS"
+            android:textColor="@color/matrix_green"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <!-- Address -->
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="example.workers.dev:443"
+            android:textColor="@color/matrix_green_dim"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="8dp"
+            android:maxLines="1"
+            android:ellipsize="middle" />
+
+        <!-- Full Link (Hidden by default) -->
+        <TextView
+            android:id="@+id/tvFullLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/matrix_green_dark"
+            android:textSize="8sp"
+            android:fontFamily="monospace"
+            android:background="@color/matrix_black"
+            android:padding="4dp"
+            android:visibility="gone"
+            android:scrollbars="horizontal"
+            android:maxLines="3"
+            android:ellipsize="end" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- 背景 -->
+    <path android:fillColor="#000000"
+        android:pathData="M0,0h108v108h-108z"/>
+    
+    <!-- Matrix风格的网格 -->
+    <group android:scaleX="0.8" android:scaleY="0.8" 
+           android:pivotX="54" android:pivotY="54">
+        
+        <!-- 中央图标 - 地球符号 -->
+        <path
+            android:fillColor="#00FF00"
+            android:pathData="M54,29a25,25 0 1,1 0,50a25,25 0 1,1 0,-50" />
+
+        <path
+            android:fillColor="#000000"
+            android:pathData="M54,34a20,20 0 1,1 0,40a20,20 0 1,1 0,-40" />
+        
+        <!-- 经纬线 -->
+        <path android:strokeColor="#00FF00"
+              android:strokeWidth="2"
+              android:fillType="evenOdd"
+              android:pathData="M54,34 A20,20 0 0,1 54,74 M34,54 A20,20 0 0,1 74,54"/>
+    
+    </group>
+    
+</vector>

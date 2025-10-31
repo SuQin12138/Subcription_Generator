@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/matrix_black"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 标题 -->
+        <TextView
+            style="@style/MatrixTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/config_title"
+            android:textSize="28sp" />
+
+        <!-- 系统配置卡片 -->
+        <androidx.cardview.widget.CardView
+            style="@style/MatrixCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/matrix_black_card"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/matrix_green"
+            app:strokeWidth="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    style="@style/MatrixSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="系统配置"
+                    android:textSize="20sp" />
+
+                <!-- Worker 域名 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/worker_domain">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etWorkerDomain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:inputType="textUri"
+                        android:hint="@string/worker_domain_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 认证令牌 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/auth_token">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAuthToken"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:inputType="text"
+                        android:hint="@string/auth_token_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 自定义路径 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/custom_path">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCustomPath"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:hint="@string/custom_path_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Worker地区设置 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/worker_region">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etWorkerRegion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 自定义ProxyIP -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/custom_ip">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCustomProxyIP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 优选IP列表 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/preferred_ips">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPreferredIps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:hint="@string/preferred_ips_hint"
+                        android:minLines="2"
+                        android:gravity="top|start" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 优选IP来源URL -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/preferred_ips_url">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPreferredIpsUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:inputType="textUri" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- SOCKS5配置 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/socks5_config">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSocksConfig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:hint="user:pass@host:port" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 订阅转换地址 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/sub_converter_url">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSubConverterUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:inputType="textUri" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 地区匹配开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/region_matching_enabled"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swRegionMatching"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- 仅TLS节点开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/tls_only"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swTlsOnly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- 启用优选域名 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/enable_preferred_domains"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swPreferredDomains"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- 启用优选IP -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/enable_preferred_ips_toggle"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swPreferredIps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- 启用 GitHub 优选 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/enable_github_ips"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swGithubIps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- API 管理开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/api_management_enabled"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swApiManagement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- 降级模式开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/downgrade_mode"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swDowngradeMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- 禁用优选IP开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/disable_preferred"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swDisablePreferred"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- 协议配置卡片 -->
+        <androidx.cardview.widget.CardView
+            style="@style/MatrixCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/matrix_black_card"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/matrix_green"
+            app:strokeWidth="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    style="@style/MatrixSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_settings"
+                    android:textSize="20sp" />
+
+                <!-- VLESS协议开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/enable_vless"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swEnableVless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- Trojan协议开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/enable_trojan"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swEnableTrojan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+                <!-- Trojan密码输入 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/trojan_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTrojanPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/matrix_green"
+                        android:fontFamily="monospace"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Xhttp协议开关 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MatrixText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/enable_xhttp"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swEnableXhttp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:thumbTint="@color/matrix_green"
+                        app:trackTint="@color/matrix_green_transparent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- 操作按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSaveConfig"
+                style="@style/MatrixButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="@string/save_config"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnResetConfig"
+                style="@style/MatrixButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/reset_config"
+                android:textColor="@color/status_warning"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
