@@ -1,8 +1,9 @@
-# Android 地区切换应用
+# 基于CF workers反代的Android 订阅生成应用
+*readme由Claude Sonnet 4.5 编写
 
 ## 项目简介
 
-这是一个基于Joey大佬[原始 Cloudflare Worker 代理脚本](https://github.com/byJoey/cfnew.git)改编的 Android 应用，提供代理地区切换、配置管理和订阅生成功能。
+这是一个基于[Joey](https://github.com/byJoey)大佬[原始 Cloudflare Worker 代理脚本](https://github.com/byJoey/cfnew.git)改编的 Android 应用，提供代理地区切换、配置管理和订阅生成功能。
 
 ## 功能特性
 
