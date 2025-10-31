@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-这是一个基于原始 Cloudflare Worker 代理脚本改编的 Android 应用，提供代理地区切换、配置管理和订阅生成功能。
+这是一个基于Joey大佬[原始 Cloudflare Worker 代理脚本](https://github.com/byJoey/cfnew.git)改编的 Android 应用，提供代理地区切换、配置管理和订阅生成功能。
 
 ## 功能特性
 
