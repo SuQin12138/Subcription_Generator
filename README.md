@@ -57,8 +57,8 @@
 
 1. **克隆项目**
 ```bash
-git clone <repository-url>
-cd Android地区切换app
+git clone https://github.com/SuQin12138/Subcription_Generator.git
+cd Config_Subcribe
 ```
 
 2. **配置环境**
@@ -75,9 +75,6 @@ cp local.properties.template local.properties
 
 # 构建Debug版本
 .\gradlew.bat assembleDebug
-
-# 或使用提供的构建脚本 (Windows)
-.\build_and_run.bat
 ```
 
 4. **安装到设备**
