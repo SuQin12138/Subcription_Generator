@@ -2,15 +2,14 @@ package com.example.regionswitcher
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.regionswitcher.data.model.ConnectionStatus
 import com.example.regionswitcher.databinding.ActivityMainBinding
-import com.example.regionswitcher.ui.config.ConfigActivity
-import com.example.regionswitcher.ui.subscription.SubscriptionActivity
+import com.example.regionswitcher.ui.generator.SubscriptionGeneratorActivity
 import com.example.regionswitcher.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -20,13 +19,16 @@ class MainActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var regionAdapter: ArrayAdapter<String>
+    private var regionOptions: List<RegionOption> = emptyList()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+
         setupUI()
+        setupRegionDropdown()
         observeViewModel()
         setupClickListeners()
         
@@ -42,33 +44,76 @@ class MainActivity : AppCompatActivity() {
             .setDuration(1000)
             .start()
     }
+
+    private fun setupRegionDropdown() {
+        regionAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf())
+        binding.acRegionSelector.setAdapter(regionAdapter)
+        binding.acRegionSelector.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && !binding.acRegionSelector.isPopupShowing) {
+                binding.acRegionSelector.showDropDown()
+            }
+        }
+        binding.acRegionSelector.setOnClickListener {
+            if (!binding.acRegionSelector.isPopupShowing) {
+                binding.acRegionSelector.showDropDown()
+            }
+        }
+        binding.acRegionSelector.setOnItemClickListener { _, _, position, _ ->
+            regionOptions.getOrNull(position)?.let { option ->
+                selectRegion(option.code)
+            }
+        }
+    }
     
     private fun observeViewModel() {
         lifecycleScope.launch {
-            // 观察当前地区
-            viewModel.currentRegion.collect { region ->
-                region?.let {
-                    binding.tvCurrentRegion.text = it.nameZh
+            viewModel.availableRegionUi.collect { regions ->
+                regionOptions = regions.map { regionUi ->
+                    RegionOption(
+                        code = regionUi.code,
+                        label = regionUi.formatted(includeCode = false)
+                    )
+                }
+                regionAdapter.clear()
+                regionAdapter.addAll(regionOptions.map { it.label })
+                regionAdapter.notifyDataSetChanged()
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.selectedRegionUi.collect { regionUi ->
+                val label = regionUi?.formatted(includeCode = false)
+                if (label.isNullOrEmpty()) {
+                    if (!binding.acRegionSelector.text.isNullOrEmpty()) {
+                        binding.acRegionSelector.setText("", false)
+                    }
+                } else if (binding.acRegionSelector.text?.toString() != label) {
+                    binding.acRegionSelector.setText(label, false)
                 }
             }
         }
-        
+
         lifecycleScope.launch {
-            // 观察系统状态
+            viewModel.deviceRegionUi.collect { regionUi ->
+                val text = regionUi?.formatted(includeCode = false)
+                    ?: getString(R.string.device_region_placeholder)
+                binding.tvCurrentRegion.text = text
+            }
+        }
+
+        lifecycleScope.launch {
             viewModel.systemStatus.collect { status ->
                 updateSystemStatus(status)
             }
         }
         
         lifecycleScope.launch {
-            // 观察加载状态
-            viewModel.isLoading.collect { isLoading ->
-                // 可以添加loading indicator
+            viewModel.isLoading.collect {
+                // 可在此处处理加载状态
             }
         }
         
         lifecycleScope.launch {
-            // 观察错误信息
             viewModel.errorMessage.collect { error ->
                 error?.let {
                     Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
@@ -78,41 +123,19 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun setupClickListeners() {
-        // 地区选择按钮
-        binding.btnRegionUS.setOnClickListener { selectRegion("US") }
-        binding.btnRegionSG.setOnClickListener { selectRegion("SG") }
-        binding.btnRegionJP.setOnClickListener { selectRegion("JP") }
-        binding.btnRegionHK.setOnClickListener { selectRegion("HK") }
-        binding.btnRegionKR.setOnClickListener { selectRegion("KR") }
-        binding.btnRegionDE.setOnClickListener { selectRegion("DE") }
-        binding.btnRegionSE.setOnClickListener { selectRegion("SE") }
-        binding.btnRegionNL.setOnClickListener { selectRegion("NL") }
-        binding.btnRegionFI.setOnClickListener { selectRegion("FI") }
-        binding.btnRegionGB.setOnClickListener { selectRegion("GB") }
-        
         // 自动检测按钮
         binding.btnAutoDetect.setOnClickListener {
             viewModel.enableAutoDetection()
             Toast.makeText(this, "已启用自动地区检测", Toast.LENGTH_SHORT).show()
         }
-        
+
         // 刷新按钮
         binding.btnRefreshRegion.setOnClickListener {
             viewModel.refreshSystemStatus()
         }
-        
-        // 配置按钮
-        binding.btnConfig.setOnClickListener {
-            startActivity(Intent(this, ConfigActivity::class.java))
-        }
-          // 订阅按钮
-        binding.btnSubscription.setOnClickListener {
-            startActivity(Intent(this, SubscriptionActivity::class.java))
-        }
-        
-        // 生成器按钮
+
         binding.btnGenerator.setOnClickListener {
-            startActivity(Intent(this, com.example.regionswitcher.ui.generator.SubscriptionGeneratorActivity::class.java))
+            startActivity(Intent(this, SubscriptionGeneratorActivity::class.java))
         }
     }
     
@@ -120,6 +143,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.selectRegion(regionCode)
         Toast.makeText(this, "已选择地区: $regionCode", Toast.LENGTH_SHORT).show()
     }
+
+    private data class RegionOption(
+        val code: String,
+        val label: String
+    )
     
     private fun updateSystemStatus(status: com.example.regionswitcher.data.model.SystemStatus) {
         // 更新连接状态
@@ -156,4 +184,5 @@ class MainActivity : AppCompatActivity() {
             else getColor(R.color.status_warning)
         )
     }
+
 }

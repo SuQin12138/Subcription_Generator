@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">地区切换器</string>
+    <string name="app_name">WorkerMobile</string>
     
     <!-- Main Activity -->
-    <string name="main_title">代理地区切换中心</string>
+    <string name="main_title">代理地区切换与订阅生成中心</string>
     <string name="current_region">当前地区</string>
-    <string name="region_detection">地区检测</string>
+    <string name="region_detection">地区切换</string>
     <string name="auto_detection">自动检测</string>
     <string name="manual_selection">手动选择</string>
     <string name="custom_proxy_ip">自定义ProxyIP模式</string>
+    <string name="selected_region_placeholder">未选择</string>
+    <string name="device_region_label">设备所在地区</string>
+    <string name="device_region_placeholder">检测中...</string>
+    <string name="select_region_label">选择目标地区</string>
+    <string name="select_region_hint">点击或搜索地区</string>
+    <string name="quick_actions">配置连接生成</string>
     
     <!-- Region Names -->
     <string name="region_us">🇺🇸 美国</string>
@@ -33,6 +39,7 @@
     <string name="reset_config">重置配置</string>
     <string name="config_saved">配置已保存</string>
     <string name="config_reset">配置已重置</string>
+    <string name="refresh_config">刷新配置</string>
     <string name="worker_domain">Worker域名</string>
     <string name="worker_domain_hint">例如: example.workers.dev</string>
     <string name="auth_token">认证令牌 (u)</string>
@@ -46,6 +53,8 @@
     <string name="enable_github_ips">启用 GitHub 默认优选</string>
     <string name="api_management_enabled">允许API管理</string>
     <string name="downgrade_mode">启用降级模式</string>
+    <string name="config_last_value">上次填写：%1$s</string>
+    <string name="config_last_value_none">上次填写：暂无记录</string>
     <string name="error_missing_worker_domain">请先配置Worker域名</string>
     <string name="error_missing_auth_or_path">请至少填写自定义路径或认证令牌</string>
     <string name="error_invalid_uuid">认证令牌格式不正确，请输入有效的UUID</string>
@@ -62,6 +71,7 @@
     
     <!-- Subscription -->
     <string name="subscription_title">订阅管理</string>
+    <string name="generator_title">生成器</string>
     <string name="subscription_url">订阅链接</string>
     <string name="generate_subscription">生成订阅</string>
     <string name="copy_subscription">复制订阅链接</string>

@@ -65,7 +65,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/region_hk"
+                        android:text="@string/device_region_placeholder"
                         android:textSize="18sp" />
 
                     <Button
@@ -115,66 +115,27 @@
                     android:text="@string/region_detection"
                     android:textSize="20sp" />
 
-                <!-- Region Grid -->
-                <GridLayout
-                    android:id="@+id/regionGrid"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MatrixEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:columnCount="2"
-                    android:rowCount="6">
+                    android:hint="@string/select_region_label">
 
-                    <Button
-                        android:id="@+id/btnRegionUS"
-                        style="@style/RegionButton"
-                        android:text="@string/region_us" />
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/acRegionSelector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:completionThreshold="1"
+                        android:cursorVisible="false"
+                        android:dropDownHeight="wrap_content"
+                        android:dropDownVerticalOffset="8dp"
+                        android:fontFamily="monospace"
+                        android:hint="@string/select_region_hint"
+                        android:inputType="none"
+                        android:textColor="@color/matrix_green" />
 
-                    <Button
-                        android:id="@+id/btnRegionSG"
-                        style="@style/RegionButton"
-                        android:text="@string/region_sg" />
-
-                    <Button
-                        android:id="@+id/btnRegionJP"
-                        style="@style/RegionButton"
-                        android:text="@string/region_jp" />
-
-                    <Button
-                        android:id="@+id/btnRegionHK"
-                        style="@style/RegionButton"
-                        android:text="@string/region_hk" />
-
-                    <Button
-                        android:id="@+id/btnRegionKR"
-                        style="@style/RegionButton"
-                        android:text="@string/region_kr" />
-
-                    <Button
-                        android:id="@+id/btnRegionDE"
-                        style="@style/RegionButton"
-                        android:text="@string/region_de" />
-
-                    <Button
-                        android:id="@+id/btnRegionSE"
-                        style="@style/RegionButton"
-                        android:text="@string/region_se" />
-
-                    <Button
-                        android:id="@+id/btnRegionNL"
-                        style="@style/RegionButton"
-                        android:text="@string/region_nl" />
-
-                    <Button
-                        android:id="@+id/btnRegionFI"
-                        style="@style/RegionButton"
-                        android:text="@string/region_fi" />
-
-                    <Button
-                        android:id="@+id/btnRegionGB"
-                        style="@style/RegionButton"
-                        android:text="@string/region_gb" />
-
-                </GridLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btnAutoDetect"
@@ -209,41 +170,16 @@
                     style="@style/MatrixSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="快速操作"
-                    android:textSize="20sp" />                <LinearLayout
+                    android:text="@string/quick_actions"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnGenerator"
+                    style="@style/MatrixButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnConfig"
-                        style="@style/MatrixButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        android:text="@string/config_title" />
-
-                    <Button
-                        android:id="@+id/btnSubscription"
-                        style="@style/MatrixButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="4dp"
-                        android:layout_weight="1"
-                        android:text="@string/subscription_title" />
-
-                    <Button
-                        android:id="@+id/btnGenerator"
-                        style="@style/MatrixButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:text="生成器" />
-
-                </LinearLayout>
+                    android:text="@string/generator_title" />
 
             </LinearLayout>
 

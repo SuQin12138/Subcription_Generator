@@ -2,15 +2,28 @@ package com.example.regionswitcher.ui.generator
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.regionswitcher.data.model.ProtocolConfig
+import com.example.regionswitcher.data.model.Region
+import com.example.regionswitcher.data.model.SystemConfig
+import com.example.regionswitcher.data.repository.ConfigRepository
+import com.example.regionswitcher.data.repository.RegionRepository
 import com.example.regionswitcher.utils.CloudflareWorkerUtils
 import com.example.regionswitcher.utils.NetworkUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
 import javax.inject.Inject
 
 @HiltViewModel
-class SubscriptionGeneratorViewModel @Inject constructor() : ViewModel() {
+class SubscriptionGeneratorViewModel @Inject constructor(
+    private val configRepository: ConfigRepository,
+    private val regionRepository: RegionRepository
+) : ViewModel() {
     
     private val _subscriptionLinks = MutableStateFlow<List<String>>(emptyList())
     val subscriptionLinks: StateFlow<List<String>> = _subscriptionLinks.asStateFlow()
@@ -26,6 +39,63 @@ class SubscriptionGeneratorViewModel @Inject constructor() : ViewModel() {
     
     private val _customSources = MutableStateFlow<List<CloudflareWorkerUtils.NodeSource>>(emptyList())
     val customSources: StateFlow<List<CloudflareWorkerUtils.NodeSource>> = _customSources.asStateFlow()
+
+    private val _configLoading = MutableStateFlow(false)
+    val configLoading: StateFlow<Boolean> = _configLoading.asStateFlow()
+
+    private val _message = MutableStateFlow<String?>(null)
+    val message: StateFlow<String?> = _message.asStateFlow()
+
+    private val systemConfigFlow: StateFlow<SystemConfig> = configRepository.getSystemConfig()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = SystemConfig()
+        )
+
+    private val protocolConfigFlow: StateFlow<ProtocolConfig> = configRepository.getProtocolConfig()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = ProtocolConfig()
+        )
+
+    data class PrefillData(
+        val uuid: String = "",
+        val workerDomain: String = "",
+        val customPath: String = "",
+        val trojanPassword: String = "",
+        val enableVless: Boolean = true,
+        val enableTrojan: Boolean = false,
+        val disableNonTls: Boolean = false
+    )
+
+    val prefillData: StateFlow<PrefillData> = combine(systemConfigFlow, protocolConfigFlow) { system, protocol ->
+        PrefillData(
+            uuid = protocol.authToken,
+            workerDomain = system.workerDomain,
+            customPath = protocol.customPath,
+            trojanPassword = protocol.trojanPassword,
+            enableVless = protocol.enableVless,
+            enableTrojan = protocol.enableTrojan,
+            disableNonTls = system.disableNonTLS
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = PrefillData()
+    )
+
+    val systemConfig: StateFlow<SystemConfig> = systemConfigFlow
+
+    val protocolConfig: StateFlow<ProtocolConfig> = protocolConfigFlow
+
+    val availableRegions: StateFlow<List<Region>> = regionRepository.getAllRegions()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
     
     data class GeneratorConfig(
         val uuid: String,
@@ -38,11 +108,25 @@ class SubscriptionGeneratorViewModel @Inject constructor() : ViewModel() {
     )
     
     fun generateDefaultSubscription() {
-        val defaultConfig = GeneratorConfig(
-            uuid = "00000000-0000-0000-0000-000000000000",
-            workerDomain = "your-worker.workers.dev"
-        )
-        generateSubscription(defaultConfig)
+        viewModelScope.launch {
+            val protocol = protocolConfigFlow.value
+            val system = systemConfigFlow.value
+
+            val uuid = protocol.authToken.ifBlank { "00000000-0000-0000-0000-000000000000" }
+            val workerDomain = system.workerDomain.ifBlank { "your-worker.workers.dev" }
+
+            val defaultConfig = GeneratorConfig(
+                uuid = uuid,
+                workerDomain = workerDomain,
+                enableVless = protocol.enableVless,
+                enableTrojan = protocol.enableTrojan,
+                trojanPassword = protocol.trojanPassword.ifBlank { null },
+                disableNonTLS = system.disableNonTLS,
+                customPath = protocol.customPath.ifBlank { null }
+            )
+
+            generateSubscription(defaultConfig)
+        }
     }
     
     fun generateSubscription(config: GeneratorConfig) {
@@ -94,6 +178,70 @@ class SubscriptionGeneratorViewModel @Inject constructor() : ViewModel() {
                 _isLoading.value = false
             }
         }
+    }
+
+    fun refreshConfigFromRemote() {
+        viewModelScope.launch {
+            _configLoading.value = true
+            val result = configRepository.fetchRemoteConfig()
+            if (result.isSuccess) {
+                _message.value = "配置已刷新"
+            } else {
+                val error = result.exceptionOrNull()
+                val errorMsg = error?.message?.takeIf { it.isNotBlank() }
+                _message.value = errorMsg?.let { "远程加载失败: $it" } ?: "远程加载失败"
+            }
+            _configLoading.value = false
+        }
+    }
+
+    fun saveConfigs(systemConfig: SystemConfig, protocolConfig: ProtocolConfig) {
+        viewModelScope.launch {
+            _configLoading.value = true
+            try {
+                configRepository.saveSystemConfig(systemConfig)
+                configRepository.saveProtocolConfig(protocolConfig)
+
+                val remoteResult = configRepository.updateRemoteConfig(systemConfig, protocolConfig)
+                if (remoteResult.isSuccess) {
+                    val message = remoteResult.getOrNull()
+                    _message.value = message ?: "配置保存成功"
+
+                    val refreshResult = configRepository.fetchRemoteConfig()
+                    if (refreshResult.isFailure) {
+                        val refreshError = refreshResult.exceptionOrNull()
+                        val refreshMsg = refreshError?.message?.takeIf { it.isNotBlank() }
+                        _message.value = refreshMsg?.let { "配置保存成功，但刷新失败: $it" }
+                            ?: "配置保存成功，但刷新失败"
+                    }
+                } else {
+                    val error = remoteResult.exceptionOrNull()
+                    val errorMsg = error?.message?.takeIf { it.isNotBlank() }
+                    _message.value = errorMsg?.let { "远程保存失败: $it" } ?: "远程保存失败"
+                }
+
+            } finally {
+                _configLoading.value = false
+            }
+        }
+    }
+
+    fun resetConfigs() {
+        viewModelScope.launch {
+            try {
+                _configLoading.value = true
+                configRepository.resetConfig()
+                _message.value = "配置已重置为默认值"
+            } catch (e: Exception) {
+                _message.value = "配置重置失败: ${e.message}"
+            } finally {
+                _configLoading.value = false
+            }
+        }
+    }
+
+    fun clearMessage() {
+        _message.value = null
     }
     
     fun addCustomIP(ip: String, port: Int, name: String) {

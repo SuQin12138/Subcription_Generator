@@ -34,17 +34,8 @@
         </activity>
         
         <activity
-            android:name=".ui.config.ConfigActivity"
-            android:label="@string/config_title"
-            android:parentActivityName=".MainActivity" />
-              <activity
-            android:name=".ui.subscription.SubscriptionActivity"
-            android:label="@string/subscription_title"
-            android:parentActivityName=".MainActivity" />
-            
-        <activity
             android:name=".ui.generator.SubscriptionGeneratorActivity"
-            android:label="订阅生成器"
+                        android:label="@string/generator_title"
             android:parentActivityName=".MainActivity" />
             
     </application>
